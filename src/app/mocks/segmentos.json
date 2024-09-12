@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1001,
+    "largo": 250.5,
+    "direccion": "Carrera 56",
+    "cantidad_calzadas": 2,
+    "cantidad_bordillos": 4
+  },
+  {
+    "id": 1002,
+    "largo": 320.0,
+    "direccion": "Carrera 57",
+    "cantidad_calzadas": 3,
+    "cantidad_bordillos": 6
+  },
+  {
+    "id": 1003,
+    "largo": 150.75,
+    "direccion": "Carrera 58",
+    "cantidad_calzadas": 1,
+    "cantidad_bordillos": 2
+  },
+  {
+    "id": 1004,
+    "largo": 500.2,
+    "direccion": "Carrera 59",
+    "cantidad_calzadas": 4,
+    "cantidad_bordillos": 8
+  },
+  {
+    "id": 1005,
+    "largo": 100.0,
+    "direccion": "Carrera 60",
+    "cantidad_calzadas": 2,
+    "cantidad_bordillos": 4
+  },
+  {
+    "id": 1006,
+    "largo": 250.5,
+    "direccion": "Carrera 56",
+    "cantidad_calzadas": 2,
+    "cantidad_bordillos": 4
+  },
+  {
+    "id": 1007,
+    "largo": 320.0,
+    "direccion": "Carrera 57",
+    "cantidad_calzadas": 3,
+    "cantidad_bordillos": 6
+  },
+  {
+    "id": 1008,
+    "largo": 150.75,
+    "direccion": "Carrera 58",
+    "cantidad_calzadas": 1,
+    "cantidad_bordillos": 2
+  },
+  {
+    "id": 1009,
+    "largo": 500.2,
+    "direccion": "Carrera 59",
+    "cantidad_calzadas": 4,
+    "cantidad_bordillos": 8
+  },
+  {
+    "id": 10010,
+    "largo": 100.0,
+    "direccion": "Carrera 60",
+    "cantidad_calzadas": 2,
+    "cantidad_bordillos": 4
+  },
+  {
+    "id": 10011,
+    "largo": 250.5,
+    "direccion": "Carrera 56",
+    "cantidad_calzadas": 2,
+    "cantidad_bordillos": 4
+  },
+  {
+    "id": 10012,
+    "largo": 320.0,
+    "direccion": "Carrera 57",
+    "cantidad_calzadas": 3,
+    "cantidad_bordillos": 6
+  },
+  {
+    "id": 10013,
+    "largo": 150.75,
+    "direccion": "Carrera 58",
+    "cantidad_calzadas": 1,
+    "cantidad_bordillos": 2
+  },
+  {
+    "id": 10014,
+    "largo": 500.2,
+    "direccion": "Carrera 59",
+    "cantidad_calzadas": 4,
+    "cantidad_bordillos": 8
+  },
+  {
+    "id": 10015,
+    "largo": 100.0,
+    "direccion": "Carrera 60",
+    "cantidad_calzadas": 2,
+    "cantidad_bordillos": 4
+  },
+  {
+    "id": 10016,
+    "largo": 250.5,
+    "direccion": "Carrera 56",
+    "cantidad_calzadas": 2,
+    "cantidad_bordillos": 4
+  },
+  {
+    "id": 10017,
+    "largo": 320.0,
+    "direccion": "Carrera 57",
+    "cantidad_calzadas": 3,
+    "cantidad_bordillos": 6
+  },
+  {
+    "id": 10018,
+    "largo": 150.75,
+    "direccion": "Carrera 58",
+    "cantidad_calzadas": 1,
+    "cantidad_bordillos": 2
+  },
+  {
+    "id": 10019,
+    "largo": 500.2,
+    "direccion": "Carrera 59",
+    "cantidad_calzadas": 4,
+    "cantidad_bordillos": 8
+  },
+  {
+    "id": 10020,
+    "largo": 100.0,
+    "direccion": "Carrera 60",
+    "cantidad_calzadas": 2,
+    "cantidad_bordillos": 4
+  }
+]
