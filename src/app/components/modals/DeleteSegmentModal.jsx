@@ -1,10 +1,17 @@
 import { Modal, Button } from "react-bootstrap";
+import { deleteSegment } from "@/app/api/deleteSegment";
 
 const DeleteSegmentModal = ({ segmentId, show, handleClose }) => {
 
-  // Confirmar la eliminación
-  const handleDelete = () => {
-    console.log(`segmento ${segmentId} borrado`)
+  const handleDelete = async () => {
+    const success = await deleteSegment(segmentId);
+    if (success) {
+      alert(`Segmento ${segmentId} borrado exitosamente`);
+      window.location.reload();
+    } else {
+      alert("Error al intentar eliminar el segmento");
+    }
+
     handleClose();
   };
 

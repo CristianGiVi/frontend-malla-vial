@@ -1,29 +1,39 @@
 import { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { editCurb } from "@/app/api/editCurb";
 
 const EditCurbModal = ({ id, show, handleClose }) => {
   const [curbId, setCurbId] = useState("");
-  const [curbLenght, setCurbLenght] = useState("");
+  const [curbLength, setCurbLength] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!curbId || !curbLenght || curbLenght < 1) {
+    if (!curbId || !curbLength || curbLength < 1) {
       alert("Por favor complete todos los campos con datos validos.");
       return;
     }
 
-    const newCurb = {
-      id: curbId,
-      length: parseFloat(curbLenght),
+    const updatedCurb = {
+      curbId: curbId,
+      length: parseFloat(curbLength),
     };
 
-    console.log(JSON.stringify(newCurb, null, 2));
-
-    setCurbId("");
-    setCurbLenght("");
-
-    handleClose();
+    try {
+      const success = await editCurb(id, updatedCurb);
+      if (success) {
+        alert("Bordillo actualizado exitosamente");
+        window.location.reload();
+      } else {
+        alert("Hubo un error al actualizar el bordillo");
+      }
+    } catch (error) {
+      alert("Hubo un error al actualizar el segmento");
+    } finally {
+      setCurbId("");
+      setCurbLength("");
+      handleClose();
+    }
   };
 
   return (
@@ -51,8 +61,8 @@ const EditCurbModal = ({ id, show, handleClose }) => {
               step="0.01"
               className="form-control"
               id="length"
-              value={curbLenght}
-              onChange={(e) => setCurbLenght(e.target.value)}
+              value={curbLength}
+              onChange={(e) => setCurbLength(e.target.value)}
               required
             />
           </div>

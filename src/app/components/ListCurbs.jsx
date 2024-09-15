@@ -1,11 +1,12 @@
-import React from "react";
+"use client";
 
 import { useState, useEffect } from "react";
-import bordillos from "@/app/mocks/bordillos.json";
+import { getCurbs } from "@/app/api/getCurbs";
+
 import DeleteCurbModal from "./modals/DeleteCurbModal";
 import EditCurbModal from "./modals/EditCurbModal";
 
-const ListCurbs = () => {
+const ListCurbs = ({segmentId}) => {
   const [curbs, setCurbs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModalDeleteCurb, setShowModalDeleteCurb] = useState(false);
@@ -13,14 +14,17 @@ const ListCurbs = () => {
   const [showModalEditCurb, setShowModalEditCurb] = useState(false);
 
   useEffect(() => {
-    try {
-      const response = bordillos;
-      setCurbs(response);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error al cargar los bordillos:", error);
-      setLoading(false);
-    }
+    const fetchCurbs = async () => {
+      try {
+        const response = await getCurbs(segmentId);
+        setCurbs(response);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error al cargar los bordillos:", error);
+        setLoading(false);
+      }
+    };
+    fetchCurbs();
   }, []);
 
   if (loading) {
@@ -45,13 +49,13 @@ const ListCurbs = () => {
             <tbody>
               {curbs.map((curb) => (
                 <tr key={curb.id}>
-                  <th scope="row">{curb.id}</th>
-                  <td>{curb.largo}</td>
+                  <th scope="row">{curb.curbId}</th>
+                  <td>{curb.length}</td>
                   <td>
                     <button
                       className="btn btn-danger btn-sm me-2"
                       onClick={() => {
-                        setCurbId(curb.id);
+                        setCurbId(curb.curbId);
                         setShowModalDeleteCurb(true);
                       }}
                     >
@@ -60,7 +64,7 @@ const ListCurbs = () => {
                     <button
                       className="btn btn-warning btn-sm me-2"
                       onClick={() => {
-                        setCurbId(curb.id);
+                        setCurbId(curb.curbId);
                         setShowModalEditCurb(true);
                       }}
                     >
@@ -98,4 +102,3 @@ const ListCurbs = () => {
 
 export default ListCurbs;
 
-// buscar por llave foranea del id del segmento en los bordillos

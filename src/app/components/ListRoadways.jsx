@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import calzadas from "@/app/mocks/calzadas.json";
+import { getRoadways } from "@/app/api/getRoadways"
+
 import DeleteRoadwayModal from "./modals/DeleteRoadwayModal";
 import EditRoadwayModal from "./modals/EditRoadwayModal";
 
-const ListRoadways = () => {
+const ListRoadways = ({segmentId}) => {
   const [roadways, setRoadways] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModalDeleteRoadway, setShowModalDeleteRoadway] = useState(false);
@@ -13,14 +14,17 @@ const ListRoadways = () => {
   const [showModalEditRoadway, setShowModalEditRoadway] = useState(false);
 
   useEffect(() => {
-    try {
-      const response = calzadas;
-      setRoadways(response);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error al cargar las calzadas:", error);
-      setLoading(false);
-    }
+    const fetchRoadways = async () => {
+      try {
+        const response = await getRoadways(segmentId);
+        setRoadways(response);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error al cargar las calzadas:", error);
+        setLoading(false);
+      }
+    };
+    fetchRoadways();
   }, []);
 
   if (loading) {
@@ -45,13 +49,13 @@ const ListRoadways = () => {
             <tbody>
               {roadways.map((roadway) => (
                 <tr key={roadway.id}>
-                  <th scope="row">{roadway.id}</th>
-                  <td>{roadway.largo}</td>
+                  <th scope="row">{roadway.roadwayId}</th>
+                  <td>{roadway.length}</td>
                   <td>
                     <button
                       className="btn btn-danger btn-sm me-2"
                       onClick={() => {
-                        setRoadwayId(roadway.id);
+                        setRoadwayId(roadway.roadwayId);
                         setShowModalDeleteRoadway(true);
                       }}
                     >

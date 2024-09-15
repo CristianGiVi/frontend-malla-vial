@@ -1,30 +1,37 @@
 import { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { createRoadway } from "@/app/api/createRoadway";
 
-const AddRoadwayModal = ({ show, handleClose }) => {
+const AddRoadwayModal = ({ show, handleClose, segmentId }) => {
 
     const [roadWayId, setRoadwayId] = useState("");
-    const [roadwayLenght, setRoadwayLenght] = useState("");
+    const [roadwayLength, setRoadwayLength] = useState("");
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async(event) => {
         event.preventDefault();
     
-        if (!roadWayId || !roadwayLenght|| roadwayLenght < 1) {
+        if (!roadWayId || !roadwayLength|| roadwayLength < 1) {
           alert("Por favor complete todos los campos con datos validos.");
           return;
         }
     
         const newRoadway = {
-          id: roadWayId,
-          length: parseFloat(roadwayLenght),
+          roadwayId: roadWayId,
+          length: parseFloat(roadwayLength),
+          segmentId: segmentId
         };
     
-        console.log(JSON.stringify(newRoadway, null, 2));
-
-        setRoadwayId("");
-        setRoadwayLenght("");
-    
-        handleClose();
+        try {
+          await createRoadway(newRoadway);
+          alert("Calzada creada exitosamente");
+          window.location.reload();
+        } catch (error) {
+          alert("Hubo un error al crear la calzada");
+        } finally {
+          setRoadwayId("");
+          setRoadwayLength("");
+          handleClose();
+        }
       };
     
       return (
@@ -52,8 +59,8 @@ const AddRoadwayModal = ({ show, handleClose }) => {
                   step="0.01"
                   className="form-control"
                   id="length"
-                  value={roadwayLenght}
-                  onChange={(e) => setRoadwayLenght(e.target.value)}
+                  value={roadwayLength}
+                  onChange={(e) => setRoadwayLength(e.target.value)}
                   required
                 />
               </div>

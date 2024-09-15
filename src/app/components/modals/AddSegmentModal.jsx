@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
+import { createSegment } from "@/app/api/createSegment";
+
 const AddSegmentModal = ({ show, handleClose }) => {
   const [segmentId, setSegmentId] = useState("");
   const [address, setAddress] = useState("");
   const [length, setLength] = useState("");
 
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!segmentId || !address || !length || length < 1) {
@@ -16,18 +17,23 @@ const AddSegmentModal = ({ show, handleClose }) => {
     }
 
     const newSegment = {
-      id: segmentId,
+      segmentId: parseInt(segmentId, 10),
       address: address,
       length: parseFloat(length),
     };
 
-    console.log(JSON.stringify(newSegment, null, 2));
-
-    setSegmentId("");
-    setAddress("");
-    setLength("");
-
-    handleClose();
+    try {
+      await createSegment(newSegment);
+      alert("Segmento creado exitosamente");
+      window.location.reload();
+    } catch (error) {
+      alert("Hubo un error al crear el segmento");
+    } finally {
+      setSegmentId("");
+      setAddress("");
+      setLength("");
+      handleClose();
+    }
   };
 
   return (

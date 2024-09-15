@@ -1,5 +1,6 @@
 const SegmentDetails = ({ segment }) => {
-  const { direccion, largo, cantidad_calzadas, cantidad_bordillos, id } = segment;
+  const { address, length, segmentId } = segment.segment;
+  const {amountCurbs, amountRoadways} = segment;
 
   return (
     <div className="card w-50 mx-auto mb-4">
@@ -9,19 +10,19 @@ const SegmentDetails = ({ segment }) => {
       <div className="card-body">
         <ul className="list-group list-group-flush">
           <li className="list-group-item">
-            <strong>ID: </strong> {id}
+            <strong>ID: </strong> {segmentId}
           </li>
           <li className="list-group-item">
-            <strong>Dirección: </strong> {direccion}
+            <strong>Dirección: </strong> {address}
           </li>
           <li className="list-group-item">
-            <strong>Largo: </strong> {largo} metros
+            <strong>Largo: </strong> {length} metros
           </li>
           <li className="list-group-item">
-            <strong>Cantidad de calzadas: </strong> {cantidad_calzadas}
+            <strong>Cantidad de calzadas: </strong> {amountRoadways}
           </li>
           <li className="list-group-item">
-            <strong>Cantidad de bordillos: </strong> {cantidad_bordillos}
+            <strong>Cantidad de bordillos: </strong> {amountCurbs}
           </li>
         </ul>
       </div>

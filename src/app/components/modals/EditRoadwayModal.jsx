@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { editRoadway } from "@/app/api/editRoadway";
 
 const EditRoadwayModal = ({ id, show, handleClose }) => {
   const [roadwayId, setRoadwayId] = useState("");
-  const [roadwayLength, setRoadwayLength] = useState(""); // Cambiado a "Length" correctamente
+  const [roadwayLength, setRoadwayLength] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!roadwayId || !roadwayLength || roadwayLength < 1) {
@@ -13,17 +14,26 @@ const EditRoadwayModal = ({ id, show, handleClose }) => {
       return;
     }
 
-    const newRoadway = {
-      id: roadwayId,
+    const updatedRoadway = {
+      roadwayId: roadwayId,
       length: parseFloat(roadwayLength),
     };
 
-    console.log(JSON.stringify(newRoadway, null, 2));
-
-    setRoadwayId("");
-    setRoadwayLength(""); // Cambiado a "Length" correctamente
-
-    handleClose();
+    try {
+      const success = await editRoadway(id, updatedRoadway);
+      if (success) {
+        alert("Calzada actualizado exitosamente");
+        window.location.reload();
+      } else {
+        alert("Hubo un error al actualizar la calzada");
+      }
+    } catch (error) {
+      alert("Hubo un error al actualizar el segmento");
+    } finally {
+      setRoadwayId("");
+      setRoadwayLength("");
+      handleClose();
+    }
   };
 
   return (

@@ -1,9 +1,17 @@
 import { Modal, Button } from "react-bootstrap";
+import { deleteCurb } from "@/app/api/deleteCurb";
 
 const DeleteCurbModal = ({ curbId, show, handleClose }) => {
 
-  const handleDelete = () => {
-    console.log(`Bordillo ${curbId} borrado`);
+  const handleDelete = async () => {
+    const success = await deleteCurb(curbId);
+    if (success) {
+      alert(`Bordillo ${curbId} borrado exitosamente`);
+      window.location.reload();
+    } else {
+      alert("Error al intentar eliminar el bordillo");
+    }
+
     handleClose();
   };
 

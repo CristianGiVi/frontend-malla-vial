@@ -1,9 +1,16 @@
 import { Modal, Button } from "react-bootstrap";
+import { deleteRoadway } from "@/app/api/deleteRoadway";
 
 const DeleteRoadwayModal = ({ roadwayId, show, handleClose }) => {
-    // Confirmar la eliminación
-    const handleDelete = () => {
-      console.log(`Calzada ${roadwayId} borrada`);
+    const handleDelete = async () => {
+      const success = await deleteRoadway(roadwayId);
+      if (success) {
+        alert(`La calzada ${roadwayId} borrado exitosamente`);
+        window.location.reload();
+      } else {
+        alert("Error al intentar eliminar la calzada");
+      }
+  
       handleClose();
     };
   

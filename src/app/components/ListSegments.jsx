@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import segmentos from "@/app/mocks/segmentos.json";
 
 import AddSegmentModal from "@/app/components/modals/AddSegmentModal";
-import DeleteSegmentModal from "@/app/components/modals/DeleteSegmentModal"; // Importar el nuevo modal
+import DeleteSegmentModal from "@/app/components/modals/DeleteSegmentModal";
+import { getSegments } from "../api/getSegments";
 
 const ListSegments = () => {
   const router = useRouter();
@@ -17,15 +17,19 @@ const ListSegments = () => {
   const [segmentId, setSegmentId] = useState(0);
 
   useEffect(() => {
-    try {
-      const response = segmentos;
-      setSegments(response);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error al cargar los segmentos:", error);
-      setLoading(false);
-    }
-  }, []);
+    const fetchSegments = async () => {
+      try {
+        const response = await getSegments();
+        setSegments(response);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error al cargar los segmentos:", error);
+        setLoading(false);
+      }
+    };
+    fetchSegments();
+  }, []); 
+
 
   if (loading) {
     return <p>Cargando segmentos...</p>;
@@ -76,17 +80,17 @@ const ListSegments = () => {
           {segments.length > 0 ? (
             <tbody>
               {segments.map((segment) => (
-                <tr key={segment.id}>
-                  <th scope="row">{segment.id}</th>
-                  <td>{segment.direccion}</td>
-                  <td>{segment.largo}</td>
-                  <td>{segment.cantidad_calzadas}</td>
-                  <td>{segment.cantidad_bordillos}</td>
+                <tr key={ segment.segment.id }>
+                  <th scope="row">{ segment.segment.segmentId }</th>
+                  <td>{ segment.segment.address }</td>
+                  <td>{ segment.segment.length }</td>
+                  <td>{ segment.amountRoadways }</td>
+                  <td>{ segment.amountCurbs }</td>
                   <td>
                     {/* Botón 'Examinar' */}
                     <button
                       className="btn btn-info btn-sm me-2"
-                      onClick={() => router.push(`/segment/${segment.id}`)}
+                      onClick={() => router.push(`/segment/${segment.segment.segmentId}`)}
                     >
                       EXAMINAR
                     </button>
@@ -94,7 +98,7 @@ const ListSegments = () => {
                     <button
                       className="btn btn-danger btn-sm"
                       onClick={() => {
-                        setSegmentId(segment.id);
+                        setSegmentId(segment.segment.segmentId);
                         setShowModalDeleteSegment(true);
                       }}
                     >
@@ -132,18 +136,4 @@ const ListSegments = () => {
 
 export default ListSegments;
 
-// import { getSegments } from "../api/getSegments";
 
-/*   useEffect(() => {
-    const fetchSegments = async () => {
-      try {
-        const response = await getSegments();
-        setSegments(response);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error al cargar los segmentos:", error);
-        setLoading(false);
-      }
-    };
-    fetchSegments();
-  }, []);  */

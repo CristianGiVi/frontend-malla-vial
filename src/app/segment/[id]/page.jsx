@@ -1,9 +1,10 @@
-"use client"; // siempre que se usa un hook
+"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-import result from "@/app/mocks/result.json";
+import { getSegment } from "@/app/api/getSegment";
+
 import SegmentDetails from "@/app/components/SegmentDetails";
 import ListCurbs from "@/app/components/ListCurbs";
 import ListRoadways from "@/app/components/ListRoadways";
@@ -12,7 +13,7 @@ import AddRoadwayModal from "@/app/components/modals/AddRoadwayModal";
 import EditSegmentModal from "@/app/components/modals/EditSegmentModal";
 
 const SegmentPage = ({ params }) => {
-  const [segment, setSegment] = useState([]);
+  const [segment, setSegment] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModalAddCurb, setShowModalAddCurb] = useState(false);
   const [showModalAddRoadway, setShowModalAddRoadway] = useState(false);
@@ -21,18 +22,24 @@ const SegmentPage = ({ params }) => {
   const router = useRouter();
   const { id } = params;
 
-  useEffect(() => {
-    try {
-      const segmentId = parseInt(id, 10);
-      const response = result.find((seg) => seg.id === segmentId);
-
-      setSegment(response);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error al cargar el segmento:", error);
-      setLoading(false);
-    }
-  }, [id]);
+   useEffect(() => {
+    const fetchSegment = async () => {
+      try {
+        const response = await getSegment(id);
+        if (response) {
+          setSegment(response);
+        } else {
+          setSegment(null);
+        }
+      } catch (error) {
+        console.error("Error al cargar el segmento:", error);
+        setSegment(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSegment();
+  }, [id]); 
 
   if (loading) {
     return <p>Cargando segmento...</p>;
@@ -48,9 +55,9 @@ const SegmentPage = ({ params }) => {
       <button
         className="btn btn-secondary position-absolute"
         style={{ top: "20px", left: "20px" }}
-        onClick={() => router.back()}
+        onClick={() => router.push(`/`)}
       >
-        &#8592; Regresar
+        &#8592; REGRESAR
       </button>
 
 
@@ -74,7 +81,7 @@ const SegmentPage = ({ params }) => {
         {/* Tabla de bordillos (ListCurbs) */}
         <div className="col-md-6">
           <h3>Bordillos</h3>
-          <ListCurbs />
+          <ListCurbs segmentId={id}/>
           {/* Botón para crear un bordillo */}
           <div className="d-flex justify-content-center mt-3">
             <button
@@ -89,7 +96,7 @@ const SegmentPage = ({ params }) => {
         {/* Tabla de calzadas (ListRoadways) */}
         <div className="col-md-6">
           <h3>Calzadas</h3>
-          <ListRoadways />
+          <ListRoadways segmentId={id}/>
           {/* Botón para crear una calzada */}
           <div className="d-flex justify-content-center mt-3">
             <button
@@ -104,10 +111,12 @@ const SegmentPage = ({ params }) => {
       <AddCurbModal
         show={showModalAddCurb}
         handleClose={() => setShowModalAddCurb(false)}
+        segmentId={id}  
       />
       <AddRoadwayModal
         show={showModalAddRoadway}
         handleClose={() => setShowModalAddRoadway(false)}
+        segmentId={id}
       />
       <EditSegmentModal
         id={id}
@@ -120,18 +129,3 @@ const SegmentPage = ({ params }) => {
 
 export default SegmentPage;
 
-// import { getSegment } from "@/app/api/getSegment";
-
-/*   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await getSegment(id);
-        setSegment(response);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error al cargar el segmento:", error);
-        setLoading(false);
-      }
-    };
-    fetchUsers();
-  }, []);  */

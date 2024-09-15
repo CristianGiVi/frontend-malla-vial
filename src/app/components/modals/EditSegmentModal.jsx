@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { editSegment } from "@/app/api/editSegment";
+import { useRouter } from "next/navigation";
 
 const EditSegmentModal = ({ id, show, handleClose }) => {
+  const router = useRouter();
   const [segmentId, setSegmentId] = useState("");
   const [address, setAddress] = useState("");
   const [length, setLength] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
 
     if (!segmentId || !address || !length || length < 1) {
@@ -14,19 +17,28 @@ const EditSegmentModal = ({ id, show, handleClose }) => {
       return;
     }
 
-    const newSegment = {
-      id: segmentId,
+    const updatedSegment = {
+      segmentId: parseInt(segmentId, 10),
       address: address,
       length: parseFloat(length),
     };
 
-    console.log(JSON.stringify(newSegment, null, 2));
-
-    setSegmentId("");
-    setAddress("");
-    setLength("");
-
-    handleClose();
+    try {
+      const success = await editSegment(id, updatedSegment);
+      if (success) {
+        alert("Segmento actualizado exitosamente");
+        router.push(`/segment/${segmentId}`)
+      } else {
+        alert("Hubo un error al actualizar el segmento");
+      }
+    } catch (error) {
+      alert("Hubo un error al actualizar el segmento");
+    } finally {
+      setSegmentId("");
+      setAddress("");
+      setLength("");
+      handleClose();
+    }
   };
 
   return (
