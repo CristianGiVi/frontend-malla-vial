@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prueba Técnica [PS2024] Proyecto de Gestión de Segmentos 
 
-## Getting Started
+Este proyecto fue desarrollado como parte de la prueba tecnica [PS2024]. Este frontend implementa una interfaz para la de la malla vial 
+en la ciudad de Medellín, gestionando "segmentos" de vías y sus respectivos "bordillos" y "calzadas". Está construido con Next.js y 
+se comunica con un backend que maneja las operaciones CRUD de los segmentos.
 
-First, run the development server:
+# Descripción
+
+Este frontend proporciona una interfaz gráfica para la gestión de segmentos, permitiendo a los usuarios crear, editar, y 
+eliminar segmentos y bordillos. La aplicación utiliza formularios modales para realizar estas operaciones de manera eficiente.
+
+Este repositorio corresponde únicamente al frontend de la aplicación. El backend, que provee las rutas necesarias para
+las operaciones CRUD, se encuentra en otro repositorio. Asegúrate de seguir las instrucciones de configuración tanto del backend 
+como del frontend para ejecutar correctamente el proyecto.
+
+# Tecnologías Utilizadas
+
+- Next.js (14.2.9): Framework de React para construir aplicaciones web de manera rápida y eficiente.
+
+- React (18): Biblioteca para la creación de interfaces de usuario.
+
+- React Bootstrap (2.10.4): Componentes preconstruidos de Bootstrap para una rápida implementación de estilos y funcionalidades.
+
+- Bootstrap (5.3.3): Framework CSS para un diseño responsivo y moderno.
+
+- ESLint (8): Herramienta para la validación de la sintaxis y buenas prácticas en el código.
+
+# Instalación y Configuración
+
+- Sigue las instrucciones en el README del backend: [Here](https://github.com/CristianGiVi/backend-malla-vial)
+
+- Clonar el repositorio:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/CristianGiVi/frontend-malla-vial.git
+cd frontend-malla-vial
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Compilar y ejecutar el proyecto:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
